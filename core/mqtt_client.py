@@ -1,4 +1,6 @@
 import paho.mqtt.client as mqtt
+import paho.mqtt.enums as cb_ver
+
 
 def mqtt_on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -11,17 +13,21 @@ def mqtt_on_connect(client, userdata, flags, rc):
         print(f"Failed to connect, return code={rc}")
 
 
-def mqtt_on_message(client, userdata, msg):
+def mqtt_on_message(client_id, userdata, msg):
     print(f"Received message: {msg.topic} {str(msg.payload)}")
 
 
-def start_mqtt_client(username, endpoint):
-    client = mqtt.Client()
-    client.mqtt_on_connect = on_connect
-    client.mqTT_on_message = on_message
+def start_mqtt_client(client_id, endpoint):
+
+    client = mqtt.Client(cb_ver.CallbackAPIVersion.VERSION1, client_id)
+    client.on_connect = mqtt_on_connect
+    client.on_message = mqtt_on_message
     
-    client.connect("mqtt.example.com", 1883)
+    client.connect(endpoint, 1883)
     client.loop_start()
 
     new_topic = username
     client.publish(new_topic, "Hello, world!")
+
+    return client
+
