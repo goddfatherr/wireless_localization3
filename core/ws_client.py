@@ -1,10 +1,9 @@
-from datatime import datetime
+from datetime import datetime
 import websocket
 import warnings
 
 # Suppress all warnings
 warnings.filterwarnings("ignore")
-
 
 def ws_on_message(ws, message):
 
@@ -13,7 +12,7 @@ def ws_on_message(ws, message):
     #publish response to mqttt broker
     payload = f"Last seen place: {message}\nLast seen time: {datetime.now()}"
 
-    client.publish(topic, payload) 
+    mqtt_client.publish(topic, payload) 
    
 def ws_on_error(ws, error):
     print(f"Error occurred: {error}")
