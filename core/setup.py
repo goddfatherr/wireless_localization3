@@ -3,7 +3,9 @@ def setup():
     user_data = []
 
     while True:
-        name = input("Please enter your name (single word without spaces): ")
+        #need to add logic to make sure username does not already exist. 
+
+        name = input("Please enter your username (single word): ")
         if ' ' in name:
             print("Error: Spaces detected")
         else:
@@ -17,7 +19,8 @@ def setup():
             visibility = "offline"
         else:
             visibility = "online"    
-    
+        
+        break
     topic = "nodes/" + name
 
     #Admin
@@ -27,7 +30,7 @@ def setup():
     user_data = {"username": name, 
                 "visibility": visibility, 
                 "topic": topic,
-                "mqtt_endpoint": mqtt_enpoint, 
+                "mqtt_endpoint": mqtt_endpoint, 
                 "server_endpoint": server_endpoint}
 
     
