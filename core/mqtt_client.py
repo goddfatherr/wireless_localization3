@@ -26,8 +26,10 @@ def start_mqtt_client(client_id, endpoint):
     client.connect(endpoint, 1883)
     client.loop_start()
 
-    new_topic = username
+    new_topic = client_id
     client.publish(new_topic, "Hello, world!")
+
+    print("MQTT Client Connected.")
 
     return client
 

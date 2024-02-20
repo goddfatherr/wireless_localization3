@@ -33,4 +33,5 @@ def start_ws_client(endpoint):
                                 on_close=ws_on_close)
 
     # Run the WebSocket connection in the main thread
+    
     ws.run_forever()
