@@ -13,7 +13,7 @@ def mqtt_on_connect(client, userdata, flags, rc):
         print(f"Failed to connect, return code={rc}")
 
 
-def mqtt_on_message(client_id, userdata, msg):
+def mqtt_on_message(client, userdata, msg):
     print(f"Received message: {msg.topic} {str(msg.payload)}")
 
 
