@@ -16,9 +16,17 @@ const options = {
 };
 
 const client = mqtt.connect(brokerAddress, options);
+const responseArea = document.getElementById("response-area");
+
+const sendBtn = document.getElementById("send-btn");
+
+responseArea.textContent = "Connecting...";
+responseArea.classList.add("show");
 
 const onConnect = () => {
   console.log("Connected to MQTT broker!");
+  responseArea.textContent = "Connected";
+  responseArea.classList.add("show");
 };
 
 const onError = (error) => {
@@ -38,11 +46,7 @@ const onTimeout = () => {
   responseArea.classList.add("show");
 };
 
-const responseArea = document.getElementById("response-area");
 
-const sendBtn = document.getElementById("send-btn");
-
-responseArea.textContent = "";
 
 sendBtn.addEventListener("click", () => {
   const topic = document.querySelector("input[type='text']").value;
