@@ -6,12 +6,10 @@ import re
 
 output_file = "output.txt"
 
-target_ssid = "GITAM"
 aps = []
 
-bssid = signal_strength = band = channel = detected_aps = None
+bssid = signal_strength = detected_aps = None
 
-index = 1
 
 def execute_netsh_cmd():
 
@@ -27,43 +25,27 @@ def detect_aps():
 
     execute_netsh_cmd()
 
-    global index, aps, target_ssid, bssid, signal_strength, band, channel, detected_aps
+    global aps, bssid, signal_strength, detected_aps
 
     aps = []
 
     with open(output_file, "r") as f:
-        target_ssid_found = False 
+    
         for line in f:
-            if target_ssid in line.split():
-                target_ssid_found = True
-                continue
 
-            if target_ssid_found:
+            if line.strip().startswith("BSSID"):
+                bssid = ":".join(line.split(":")[1:]).strip()
 
-                if "SSID" in line.split() and "GITAM" not in line.split():
-                    break
-                
-                line = line.strip()
+            elif line.strip().startswith("Signal"):
+                signal_strength = float(line.split(":")[1].strip().strip('%'))
 
-                if line.startswith("BSSID"):
-                    bssid = ":".join(line.split(":")[1:]).strip()
+                aps.append({
+                    "bssid": bssid,
+                    "dBm_signal": signal_strength,
+                })  
 
-                if line.startswith("Signal"):
-                    signal_strength = float(line.split(":")[1].strip().strip('%'))
+        detected_aps = pd.DataFrame(aps)
 
-                if line.startswith("Band"):
-                    band = line.split(":")[1].strip()
 
-                if line.startswith("Channel") and ("Utilization:" not in line):
-                    channel = line.split(":")[1].strip()
 
-                    aps.append({
-                        "index": index,
-                        "bssid": bssid,
-                        "dBm_signal": signal_strength,
-                        "channel": channel,
-                        "band": band
-                    })
-                    index = index + 1    
-
-                    detected_aps = pd.DataFrame(aps)
+    
