@@ -2,5 +2,6 @@
 install dependencies
 ```
 pip install paho-mqtt
-#pip install websocket
+#pip install websocket-client
+pip install rel
 ```
