@@ -24,8 +24,10 @@ def setup():
     topic = "nodes/" + name
 
     #Admin
-    mqtt_endpoint = input("Enter Broker Endpoint: ")
-    server_endpoint = input("Enter Server Endpoint: ")
+    #mqtt_endpoint = input("Enter Broker Endpoint: ")
+    #server_endpoint = input("Enter Server Endpoint: ")
+    mqtt_endpoint = "172.22.206.85"
+    server_endpoint = "172.22.203.113"
 
     user_data = {"username": name, 
                 "visibility": visibility, 
