@@ -17,7 +17,7 @@ def ws_on_message(ws, message):
     #publish response to mqttt broker
     payload = f"Last seen place: {message}\nLast seen time: {datetime.now()}"
 
-    mqtt_client_conn.publish(topic, payload) 
+    mqtt_client_conn.publish(topic, payload, retain = True) 
    
 def ws_on_error(ws, error):
     print(f"Error occurred: {error}")
