@@ -6,8 +6,8 @@ def mqtt_on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to MQTT broker")
 
-        # Subscribe to topics when connected
-        client.subscribe("topic1")
+        #subscribe to topics when connected
+        #client.subscribe("topic1")
 
     else:
         print(f"Failed to connect, return code={rc}")
@@ -26,10 +26,8 @@ def start_mqtt_client(client_id, endpoint):
     client.connect(endpoint, 1883)
     client.loop_start()
 
-    new_topic = client_id
-    client.publish(new_topic, "Hello, world!")
-
-    print("MQTT Client Connected.")
+    user_topic = client_id
+    client.publish(user_topic, "none", retain = True)
 
     return client
 
