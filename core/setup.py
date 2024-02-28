@@ -1,6 +1,7 @@
 
+user_data = []
 def setup():
-    user_data = []
+    global user_data
 
     while True:
         #need to add logic to make sure username does not already exist. 
@@ -26,8 +27,8 @@ def setup():
     #Admin
     #mqtt_endpoint = input("Enter Broker Endpoint: ")
     #server_endpoint = input("Enter Server Endpoint: ")
-    mqtt_endpoint = "172.22.206.85"
-    server_endpoint = "172.22.203.113"
+    mqtt_endpoint = "172.22.195.48"
+    server_endpoint = "172.22.195.48"
 
     user_data = {"username": name, 
                 "visibility": visibility, 
